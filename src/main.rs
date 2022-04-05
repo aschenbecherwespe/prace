@@ -55,17 +55,14 @@ impl Tuple {
     }
 
     fn dot(&self, other: &Tuple) -> f32 {
-        self.x * other.x +
-        self.y * other.y +
-        self.z * other.z +
-        self.w * other.w
+        self.x * other.x + self.y * other.y + self.z * other.z + self.w * other.w
     }
 
     fn cross(&self, other: &Tuple) -> Tuple {
         vector(
             self.y * other.z - self.z * other.y,
             self.z * other.x - self.x * other.z,
-            self.x * other.y - self.y * other.x
+            self.x * other.y - self.y * other.x,
         )
     }
 }
@@ -360,7 +357,14 @@ fn normalize_unit() {
 
 #[test]
 fn normalize_normal() {
-    assert_eq!(vector(1.0, 2.0, 3.0).normalize(), vector(1.0/14.0_f32.sqrt(), 2.0/14.0_f32.sqrt(), 3.0/14.0_f32.sqrt()))
+    assert_eq!(
+        vector(1.0, 2.0, 3.0).normalize(),
+        vector(
+            1.0 / 14.0_f32.sqrt(),
+            2.0 / 14.0_f32.sqrt(),
+            3.0 / 14.0_f32.sqrt()
+        )
+    )
 }
 
 #[test]
