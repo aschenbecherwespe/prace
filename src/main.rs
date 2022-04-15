@@ -1,19 +1,38 @@
+#[derive(Clone, Copy)]
+struct Environment {
+    gravity: Tuple,
+    wind: Tuple,
+}
+
+#[derive(Debug)]
+struct Projectile {
+    position: Tuple,
+    velocity: Tuple,
+}
+
+fn tick(env: Environment, proj: &Projectile) -> Projectile {
+    let new_pos = proj.position + proj.velocity;
+    let new_vel = proj.velocity + env.gravity + env.wind;
+    return Projectile {
+        position: new_pos,
+        velocity: new_vel
+    };
+}
 fn main() {
-    println!("Hello, world!");
-    let point = Tuple {
-        x: 4.3,
-        y: -4.2,
-        z: 3.1,
-        w: 1.0,
+    let env = Environment {
+        gravity: vector(0.0, -0.1, 0.0),
+        wind: vector(0.01, 0.0, 0.0),
     };
-    let vector = Tuple {
-        x: 4.3,
-        y: -4.2,
-        z: 3.1,
-        w: 0.0,
+
+    let mut proj = Projectile {
+        position: point(0.0, 1.0, 0.0),
+        velocity: vector(1.0, 1.0, 0.0).normalize(),
     };
-    println!("{:?}", point);
-    println!("{:?}", vector);
+
+    for _ in 1..18 {
+        println!("{:?}", proj);
+        proj = tick(env, &proj);
+    }
 }
 
 fn point(x: f32, y: f32, z: f32) -> Tuple {
@@ -24,7 +43,7 @@ fn vector(x: f32, y: f32, z: f32) -> Tuple {
     Tuple { x, y, z, w: 0.0 }
 }
 
-#[derive(Debug, PartialEq)]
+#[derive(Debug, PartialEq, Clone, Copy)]
 struct Tuple {
     x: f32,
     y: f32,
