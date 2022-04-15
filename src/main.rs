@@ -35,6 +35,21 @@ fn main() {
     }
 }
 
+struct Color {
+    red: f32,
+    green: f32,
+    blue: f32,
+}
+
+#[test]
+fn color_test() {
+    let c = Color {red: -0.5, green: 0.4, blue: 1.7};
+    assert_eq!(c.red, -0.5);
+    assert_eq!(c.green, 0.4);
+    assert_eq!(c.blue, 1.7);
+}
+
+
 fn point(x: f32, y: f32, z: f32) -> Tuple {
     Tuple { x, y, z, w: 1.0 }
 }
@@ -150,6 +165,54 @@ fn vector_maker() {
 
 use std::ops::{Add, Div, Mul, Neg, Sub};
 
+
+impl Add for Color {
+    type Output = Self;
+
+    fn add(self, other: Self) -> Self {
+        Self {
+            red: self.red + other.red,
+            green: self.green + other.green,
+            blue: self.blue + other.blue,
+        }
+    }
+}
+
+impl Sub for Color {
+    type Output = Self;
+
+    fn sub(self, other: Self) -> Self {
+        Self {
+            red: self.red - other.red,
+            green: self.green - other.green,
+            blue: self.blue - other.blue,
+        }
+    }
+}
+
+impl Mul for Color {
+    type Output = Self;
+
+    fn mul(self, other: Self) -> Self {
+        Self {
+            red: self.red * other.red,
+            green: self.green * other.green,
+            blue: self.blue * other.blue,
+        }
+    }
+}
+
+impl Mul<f32> for Color {
+    type Output = Self;
+
+    fn mul(self, other: f32) -> Self {
+        Self {
+            red: self.red * other,
+            green: self.green * other,
+            blue: self.blue * other,
+        }
+    }
+}
 impl Add for Tuple {
     type Output = Self;
 
