@@ -226,6 +226,13 @@ impl Add for Tuple {
     }
 }
 
+#[test]
+fn add_colors() {
+    let c1 = Color{red: 0.9, green: 0.6, blue: 0.75 };
+    let c2 = Color{red: 0.7, green: 0.1, blue: 0.25 };
+    assert_eq!(Color {red: 1.6, green: 0.7, blue: 1.0}, c1 + c1);
+}
+
 impl Sub for Tuple {
     type Output = Self;
 
